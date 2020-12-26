@@ -3,22 +3,31 @@
 #include <Arduino.h>
 class DriverLib {
 public:
-	DriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin);
-	void setMaxSpeed(float speed);
+	DriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin);
+	void setMaxSpeed(float stepsPerSecond);
 	void setAcceleration(int acceleration);
-	void setCurrentStep(long step);
-	void moveBySteps(long pos);
+	void moveTo(long step);
+	void moveBy(long pos);
+	void setMicrosteps(int pow);
 private:
+	int _microsteps;
 	long _currentPosition;
 	long _targetPosition;
-	float _speed;
 	float _maxSpeed;
 	float _acceleration;
 	long _timeBetweenSteps;
 
 	int _stepPin;
+	int _dirPin;
 	int _ms1Pin;
 	int _ms2Pin;
 	int _ms3Pin;
+
+	int microsteps[4][3] = {
+	{0, 0, 0},
+	{1, 0, 0},
+	{1, 1, 0},
+	{1, 1, 1}
+	};
 };
 #endif
