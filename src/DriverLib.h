@@ -22,9 +22,10 @@ private:
 	int _ms2Pin;
 	int _ms3Pin;
 
-	int microsteps[4][3] = {
+	int microsteps[5][3] = {
 	{0, 0, 0},
 	{1, 0, 0},
+	{0, 1, 0},
 	{1, 1, 0},
 	{1, 1, 1}
 	};
