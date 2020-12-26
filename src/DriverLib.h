@@ -5,7 +5,7 @@ class DriverLib {
 public:
 	DriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin);
 	void setMaxSpeed(float stepsPerSecond);
-	void setAcceleration(int acceleration);
+	void setAcceleration(float acceleration);
 	void moveTo(long step);
 	void moveBy(long pos);
 	void setMicrosteps(int pow);
@@ -15,7 +15,6 @@ private:
 	long _targetPosition;
 	float _maxSpeed;
 	float _acceleration;
-	long _timeBetweenSteps;
 
 	int _stepPin;
 	int _dirPin;

@@ -4,9 +4,8 @@ DriverLib::DriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin
 {
 	_currentPosition = 0;
 	_targetPosition = 0;
-	_maxSpeed = 0;
+	_maxSpeed = 1;
 	_acceleration = 0;
-	_timeBetweenSteps = 0;
 	
 	_dirPin = dirPin;
 	_stepPin = stepPin;
@@ -31,9 +30,9 @@ void DriverLib::setMicrosteps(int pow) {
 	}
 
 	_microsteps = value;
-	digitalWrite(_ms1Pin, microsteps[pow][0])
-	digitalWrite(_ms2Pin, microsteps[pow][1])
-	digitalWrite(_ms3Pin, microsteps[pow][2])
+	digitalWrite(_ms1Pin, microsteps[pow][0]);
+	digitalWrite(_ms2Pin, microsteps[pow][1]);
+	digitalWrite(_ms3Pin, microsteps[pow][2]);
 }
 
 void DriverLib::moveTo(long step) {
