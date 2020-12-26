@@ -112,7 +112,7 @@ void setup() {
   pinMode(ms3Pin, OUTPUT);
   // Создать экземпляр драйвера
   driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
-  // Установить скорость вращение двигателя
+  // Установить скорость вращения двигателя
   driver->setMaxSpeed(100000);
 }
 
@@ -146,7 +146,7 @@ void setup() {
   driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
   // Создаёт вращательный драйвер для мотора с шагом в 1.8 градуса
   degreeDriver = new DegreesDriverLib(driver, 1.8f);
-  // Установить скорость вращение двигателя
+  // Установить скорость вращения двигателя
   driver->setMaxSpeed(100000);
 }
 
@@ -183,7 +183,7 @@ void setup() {
   degreeDriver = new DegreesDriverLib(driver, 1.8f);
   // Создать линейный драйвер для двигателя который за каждый оборот смещает на 1 сантиметр
   linearDriver = new LinearDriverLib(degreeDriver, 10);
-  // Установить скорость вращение двигателя
+  // Установить скорость вращения двигателя
   driver->setMaxSpeed(100000);
 }
 
