@@ -76,7 +76,7 @@ void DriverLib::moveBy(long delta) {
 		}
 
 		// /2?
-		int waitingDuration = 1000000 / currentSpeed;
+		int waitingDuration = 1000000 / currentSpeed / _microsteps;
 		digitalWrite(_stepPin, HIGH);
 		delayMicroseconds(waitingDuration);
 		digitalWrite(_stepPin, LOW);
