@@ -1,0 +1,14 @@
+DriverLib KEYWORD1
+setMaxSpeed KEYWORD2
+setAcceleration KEYWORD2
+moveTo KEYWORD2
+moveBy KEYWORD2
+setMicrosteps KEYWORD2
+
+DegreesDriverLib KEYWORD1
+rotateTo KEYWORD2
+rotateBy KEYWORD2
+
+LinearDriverLib KEYWORD1
+moveTo KEYWORD2
+moveBy KEYWORD2
