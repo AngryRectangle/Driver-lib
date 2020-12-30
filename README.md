@@ -52,21 +52,52 @@ void moveBy(long step)
 ```
 - step - относительно вращение измеряемое в шагах.
 
+7. #### Microstep constants
+| Const         | Microstep Resolution|
+| ------------- |:-------------------:|
+| FULL_STEP     | Full Step           |
+| HALF_STEP     | Half Step           |
+| QUARTER_STEP     | Quarter Step           |
+| EIGHTH_STEP     | Eighth Step           |
+| SIXTEENTH_STEP     | Sixteenth Step           |
+
 ### DegreesDriverLib
 1. #### Конструктор
 ```c++
-DegreesDriverLib(DriverLib* driver, float degreesPerStep)
+DegreesDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float degreesPerStep)
 ```
-- driver - драйвер.
+- stepPin - номер пина, подключённого к step драйвера.
+- ms1Pin - номер пина, подключённого к ms1 драйвера.
+- ms2Pin - номер пина, подключённого к ms2 драйвера.
+- ms3Pin - номер пина, подключённого к ms3 драйвера.
+- dirPin - номер пина, подключённого к dir драйвера.
 - degreesPerStep - вращение в градусов на каждый шаг мотора.
 
-2. #### rotateTo
+2. #### setMaxSpeed
+```c++
+void setMaxSpeed(float speed)
+```
+- speed - количество градусов, которые совершает мотор за 1 секунду.
+
+3. #### setAcceleration
+```c++
+void setAcceleration(float acceleration)
+```
+- acceleration - прирост скорости за 1 секунду в градусах.
+
+4. #### setMicrosteps
+```c++
+void setMicrosteps(int pow)
+```
+- pow - каждый шаг делится на 2^pow микрошагов. (При 0 (2^0) в каждом шаге будет только 1 микрошаг, при 4 в каждом шаге будет 2^4 микрошагов).
+
+5. #### rotateTo
 ```c++
 void rotateTo(float angle);
 ```
 - angle - абсолютное целевое вращение двигателя в градусах.
 
-3. #### rotateBy
+6. #### rotateBy
 ```c++
 void rotateBy(float angle);
 ```
@@ -75,18 +106,40 @@ void rotateBy(float angle);
 ### LinearDriverLib
 1. #### Конструктор
 ```c++
-LinearDriverLib(DegreesDriverLib* driver, float millimetersPerRotation);
+LinearDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float millimetersPerStep);
 ```
-- driver - драйвер.
-- millimetersPerRotation - перемещение в миллиметрах на каждый оборот мотора.
+- stepPin - номер пина, подключённого к step драйвера.
+- ms1Pin - номер пина, подключённого к ms1 драйвера.
+- ms2Pin - номер пина, подключённого к ms2 драйвера.
+- ms3Pin - номер пина, подключённого к ms3 драйвера.
+- dirPin - номер пина, подключённого к dir драйвера.
+- millimetersPerStep - перемещение в миллиметрах на каждый шаг мотора.
 
-2. #### moveTo
+2. #### setMaxSpeed
+```c++
+void setMaxSpeed(float speed)
+```
+- speed - количество миллиметров, которые совершает мотор за 1 секунду.
+
+3. #### setAcceleration
+```c++
+void setAcceleration(float acceleration)
+```
+- acceleration - прирост скорости за 1 секунду в миллиметрах.
+
+4. #### setMicrosteps
+```c++
+void setMicrosteps(int pow)
+```
+- pow - каждый шаг делится на 2^pow микрошагов. (При 0 (2^0) в каждом шаге будет только 1 микрошаг, при 4 в каждом шаге будет 2^4 микрошагов).
+
+5. #### moveTo
 ```c++
 void moveTo(float millimeters);
 ```
 - millimeters - абсолютное целевое перемещение двигателя в миллиметрах.
 
-3. #### moveBy
+6. #### moveBy
 ```c++
 void moveBy(float millimeters);
 ```
