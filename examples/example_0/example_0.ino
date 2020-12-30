@@ -8,11 +8,6 @@
 
 DriverLib *driver;
 void setup() {
-  pinMode(stepPin, OUTPUT);
-  pinMode(dirPin, OUTPUT);
-  pinMode(ms1Pin, OUTPUT);
-  pinMode(ms2Pin, OUTPUT);
-  pinMode(ms3Pin, OUTPUT);
   // Create driver class exemplar
   driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
   // Set speed in steps per second
