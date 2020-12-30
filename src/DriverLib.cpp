@@ -12,6 +12,12 @@ DriverLib::DriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin
 	_ms1Pin = ms1Pin;
 	_ms2Pin = ms2Pin;
 	_ms3Pin = ms3Pin;
+
+	pinMode(stepPin, OUTPUT);
+	pinMode(dirPin, OUTPUT);
+	pinMode(ms1Pin, OUTPUT);
+	pinMode(ms2Pin, OUTPUT);
+	pinMode(ms3Pin, OUTPUT);
 }
 
 void DriverLib::setMaxSpeed(float speed)
