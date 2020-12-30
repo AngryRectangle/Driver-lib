@@ -14,8 +14,6 @@ private:
 	float _degreesPerStep;
 	DriverLib* _driver;
 
-	float transformed(float input) {
-		return angle / _degreesPerStep;
-	}
+	float transformed(float input);
 };
 #endif
