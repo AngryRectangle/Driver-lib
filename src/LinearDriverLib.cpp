@@ -1,7 +1,7 @@
 #include "LinearDriverLib.h"
 
 LinearDriverLib::LinearDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float millimetersPerStep) {
-	_driver = new DriverLib(stepPin, stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
+	_driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
 	_millimetersPerStep = millimetersPerStep;
 }
 
@@ -20,10 +20,10 @@ void LinearDriverLib::setAcceleration(float acceleration) {
 	_driver->setAcceleration(transformed(acceleration));
 }
 
-void LinearDriverLib::transformed(float input) {
-	return input / _millimetersPerStep;
-}
-
 void LinearDriverLib::setMicrosteps(int pow) {
 	_driver->setMicrosteps(pow);
+}
+
+float LinearDriverLib::transformed(float input) {
+	return input / _millimetersPerStep;
 }

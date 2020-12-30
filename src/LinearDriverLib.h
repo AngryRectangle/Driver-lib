@@ -1,7 +1,7 @@
 #ifndef LinearDriverLib_h
 #define LinearDriverLib_h
 #include <Arduino.h>
-#include <DegreesDriverLib.h>
+#include <DriverLib.h>
 class LinearDriverLib {
 public:
 	LinearDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float millimetersPerStep);
