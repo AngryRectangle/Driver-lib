@@ -6,7 +6,7 @@
 #define ms2Pin 5
 #define ms3Pin 6
 
-DriverLib *driver;
+static DriverLib *driver;
 void setup() {
   // Create driver class exemplar
   driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);

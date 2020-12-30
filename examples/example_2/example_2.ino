@@ -6,7 +6,7 @@
 #define ms2Pin 5
 #define ms3Pin 6
 
-LinearDriverLib *linearDriver;
+static LinearDriverLib *linearDriver;
 void setup() {
   // Create linear driver for motor with which moves by 0.5 milimeters each step
   linearDriver = new LinearDriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin, 0.5f);

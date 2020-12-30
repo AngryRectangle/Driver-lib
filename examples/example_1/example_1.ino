@@ -6,7 +6,7 @@
 #define ms2Pin 5
 #define ms3Pin 6
 
-DegreesDriverLib *degreeDriver;
+static DegreesDriverLib *degreeDriver;
 void setup() {
   // Create degrees driver for motor with rotates each steps by 1.8 degrees
   degreeDriver = new DegreesDriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin, 1.8f);
