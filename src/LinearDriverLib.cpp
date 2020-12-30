@@ -1,13 +1,29 @@
 #include "LinearDriverLib.h"
 
-LinearDriverLib::LinearDriverLib(DegreesDriverLib* driver, float millimetersPerRotation) {
-	_driver = driver;
-	_millimetersPerRotation = millimetersPerRotation;
+LinearDriverLib::LinearDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float millimetersPerStep) {
+	_driver = new DriverLib(stepPin, stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
+	_millimetersPerStep = millimetersPerStep;
 }
 
 void LinearDriverLib::moveBy(float millimeters) {
-	_driver->rotateBy(millimeters / _millimetersPerRotation * 360);
+	_driver->moveBy((long)transformed(millimeters));
 }
 void LinearDriverLib::moveTo(float millimeters) {
-	_driver->rotateTo(millimeters / _millimetersPerRotation * 360);
+	_driver->moveTo((long)transformed(millimeters));
+}
+
+void LinearDriverLib::setMaxSpeed(float millimetersPerSecond) {
+	_driver->setMaxSpeed(transformed(millimetersPerSecond));
+}
+
+void LinearDriverLib::setAcceleration(float acceleration) {
+	_driver->setAcceleration(transformed(acceleration));
+}
+
+void LinearDriverLib::transformed(float input) {
+	return input / _millimetersPerStep;
+}
+
+void LinearDriverLib::setMicrosteps(int pow) {
+	_driver->setMicrosteps(pow);
 }
