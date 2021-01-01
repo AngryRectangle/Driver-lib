@@ -52,21 +52,52 @@ void moveBy(long step)
 ```
 - step - относительно вращение измеряемое в шагах.
 
+7. #### Microstep constants
+| Const         | Microstep Resolution|
+| ------------- |:-------------------:|
+| FULL_STEP     | Full Step           |
+| HALF_STEP     | Half Step           |
+| QUARTER_STEP     | Quarter Step           |
+| EIGHTH_STEP     | Eighth Step           |
+| SIXTEENTH_STEP     | Sixteenth Step           |
+
 ### DegreesDriverLib
 1. #### Конструктор
 ```c++
-DegreesDriverLib(DriverLib* driver, float degreesPerStep)
+DegreesDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float degreesPerStep)
 ```
-- driver - драйвер.
+- stepPin - номер пина, подключённого к step драйвера.
+- ms1Pin - номер пина, подключённого к ms1 драйвера.
+- ms2Pin - номер пина, подключённого к ms2 драйвера.
+- ms3Pin - номер пина, подключённого к ms3 драйвера.
+- dirPin - номер пина, подключённого к dir драйвера.
 - degreesPerStep - вращение в градусов на каждый шаг мотора.
 
-2. #### rotateTo
+2. #### setMaxSpeed
+```c++
+void setMaxSpeed(float speed)
+```
+- speed - количество градусов, которые совершает мотор за 1 секунду.
+
+3. #### setAcceleration
+```c++
+void setAcceleration(float acceleration)
+```
+- acceleration - прирост скорости за 1 секунду в градусах.
+
+4. #### setMicrosteps
+```c++
+void setMicrosteps(int pow)
+```
+- pow - каждый шаг делится на 2^pow микрошагов. (При 0 (2^0) в каждом шаге будет только 1 микрошаг, при 4 в каждом шаге будет 2^4 микрошагов).
+
+5. #### rotateTo
 ```c++
 void rotateTo(float angle);
 ```
 - angle - абсолютное целевое вращение двигателя в градусах.
 
-3. #### rotateBy
+6. #### rotateBy
 ```c++
 void rotateBy(float angle);
 ```
@@ -75,122 +106,41 @@ void rotateBy(float angle);
 ### LinearDriverLib
 1. #### Конструктор
 ```c++
-LinearDriverLib(DegreesDriverLib* driver, float millimetersPerRotation);
+LinearDriverLib(int stepPin, int ms1Pin, int ms2Pin, int ms3Pin, int dirPin, float millimetersPerStep);
 ```
-- driver - драйвер.
-- millimetersPerRotation - перемещение в миллиметрах на каждый оборот мотора.
+- stepPin - номер пина, подключённого к step драйвера.
+- ms1Pin - номер пина, подключённого к ms1 драйвера.
+- ms2Pin - номер пина, подключённого к ms2 драйвера.
+- ms3Pin - номер пина, подключённого к ms3 драйвера.
+- dirPin - номер пина, подключённого к dir драйвера.
+- millimetersPerStep - перемещение в миллиметрах на каждый шаг мотора.
 
-2. #### moveTo
+2. #### setMaxSpeed
+```c++
+void setMaxSpeed(float speed)
+```
+- speed - количество миллиметров, которые совершает мотор за 1 секунду.
+
+3. #### setAcceleration
+```c++
+void setAcceleration(float acceleration)
+```
+- acceleration - прирост скорости за 1 секунду в миллиметрах.
+
+4. #### setMicrosteps
+```c++
+void setMicrosteps(int pow)
+```
+- pow - каждый шаг делится на 2^pow микрошагов. (При 0 (2^0) в каждом шаге будет только 1 микрошаг, при 4 в каждом шаге будет 2^4 микрошагов).
+
+5. #### moveTo
 ```c++
 void moveTo(float millimeters);
 ```
 - millimeters - абсолютное целевое перемещение двигателя в миллиметрах.
 
-3. #### moveBy
+6. #### moveBy
 ```c++
 void moveBy(float millimeters);
 ```
 - millimeters - относительное перемещение двигателя в миллиметрах.
-
-## Примеры
-1. Пример DriverLib.
-```c++
-#include "DriverLib.h"
-
-#define stepPin 2
-#define dirPin 3
-#define ms1Pin 4
-#define ms2Pin 5
-#define ms3Pin 6
-
-DriverLib *driver;
-void setup() {
-  pinMode(stepPin, OUTPUT);
-  pinMode(dirPin, OUTPUT);
-  pinMode(ms1Pin, OUTPUT);
-  pinMode(ms2Pin, OUTPUT);
-  pinMode(ms3Pin, OUTPUT);
-  // Создать экземпляр драйвера
-  driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
-  // Установить скорость вращения двигателя
-  driver->setMaxSpeed(100000);
-}
-
-void loop() {
-  // Сдвинуть мотора на 5000 шагов (абсолютное перемещение)
-  driver->moveBy(5000);
-  // Сдвинуть мотор на 10000 шагов назад
-  driver->moveBy(-10000);
-}
-```
-
-2. Пример DegreesDriverLib.
-```c++
-#include "DegreesDriverLib.h"
-
-#define stepPin 2
-#define dirPin 3
-#define ms1Pin 4
-#define ms2Pin 5
-#define ms3Pin 6
-
-DriverLib *driver;
-DegreesDriverLib *degreeDriver;
-void setup() {
-  pinMode(stepPin, OUTPUT);
-  pinMode(dirPin, OUTPUT);
-  pinMode(ms1Pin, OUTPUT);
-  pinMode(ms2Pin, OUTPUT);
-  pinMode(ms3Pin, OUTPUT);
-  // Создать экземпляр драйвера
-  driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
-  // Создаёт вращательный драйвер для мотора с шагом в 1.8 градуса
-  degreeDriver = new DegreesDriverLib(driver, 1.8f);
-  // Установить скорость вращения двигателя
-  driver->setMaxSpeed(100000);
-}
-
-void loop() {
-  // Вращение на 720 градусов по часовой
-  degreeDriver->rotateBy(720);
-  // Установка вращения двигателя на 0 (абсолютное перемещение)
-  degreeDriver->rotateTo(0);
-}
-```
-
-3. Пример LinearDriverLib.
-```c++
-#include "LinearDriverLib.h"
-
-#define stepPin 2
-#define dirPin 3
-#define ms1Pin 4
-#define ms2Pin 5
-#define ms3Pin 6
-
-DriverLib *driver;
-DegreesDriverLib *degreeDriver;
-LinearDriverLib *linearDriver;
-void setup() {
-  pinMode(stepPin, OUTPUT);
-  pinMode(dirPin, OUTPUT);
-  pinMode(ms1Pin, OUTPUT);
-  pinMode(ms2Pin, OUTPUT);
-  pinMode(ms3Pin, OUTPUT);
-  // Создать экземпляр драйвера
-  driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
-  // Создаёт вращательный драйвер для мотора с шагом в 1.8 градуса
-  degreeDriver = new DegreesDriverLib(driver, 1.8f);
-  // Создать линейный драйвер для двигателя который за каждый оборот смещает на 1 сантиметр
-  linearDriver = new LinearDriverLib(degreeDriver, 10);
-  // Установить скорость вращения двигателя
-  driver->setMaxSpeed(100000);
-}
-
-void loop() {
-  // Передвинуть на 2m
-  linearDriver->moveBy(2000);
-  // Установить положение мотора в 1 cm (абсолютное перемещение)
-  linearDriver->moveTo(10);
-}
-```
