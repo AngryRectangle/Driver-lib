@@ -12,6 +12,8 @@ void setup() {
   driver = new DriverLib(stepPin, ms1Pin, ms2Pin, ms3Pin, dirPin);
   // Set speed in steps per second
   driver->setMaxSpeed(100000);
+  // Set 1/2 step dividing
+  driver->setMicrosteps(HALF_STEP);
 }
 
 void loop() {
